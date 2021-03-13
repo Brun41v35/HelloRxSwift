@@ -6,14 +6,24 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ViewController: UIViewController {
-
+    
+    //MARK: - Outlets
+    @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak var label: UILabel!
+    
+    //MARK: - Variaveis
+    let disposeBag = DisposeBag()
+    
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.slider.rx.value.subscribe(onNext: { myValue in
+            self.label.text = "\(myValue)"
+        }).disposed(by: disposeBag)
     }
-
-
 }
 
